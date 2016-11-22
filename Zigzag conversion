@@ -1,0 +1,34 @@
+# s = '0123456789abcdefg'
+# numRows = 5
+
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        size = len(s)
+        if size == 0 or numRows == 1: 
+            return s
+        else:
+            cycle = numRows + (numRows -2) 
+            cycle_number = (size-1)/cycle
+            ret= ''
+    
+            for i in range (0,numRows): 
+            	if i == 0: 
+            		for j in range (0,cycle_number + 1):
+            			if j * cycle <= size - 1:
+            				ret += s[j * cycle]
+            	elif i != numRows - 1 : 
+            		for j in range (0,cycle_number + 2):
+            			if j * cycle - i > 0 and j * cycle - i <= size - 1: 
+            				ret += s[j * cycle - i]
+            			if j * cycle + i <= size - 1:
+            				ret += s[j * cycle + i]
+            	else : 
+            		for j in range (0,cycle_number + 1):
+            			if j * cycle + numRows - 1 <= size - 1:
+            				ret += s[j * cycle + numRows - 1]
+            return ret
